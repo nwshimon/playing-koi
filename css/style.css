@@ -1,44 +1,63 @@
+
 /* ===========================
-   CSS VARIABLES & RESET
+   COLOR VARIABLES
+   using CSS custom properties -> root allows to change color only in 1 place
+   learned from: MDN docs on custom properties
    =========================== */
 :root {
-   --coral:      #ffbdb6; 
-    --coral-dark: #532123;
-    --coral-text: #8b1a10;
-        --navy:    #163C52;
-    --navy-mid: #2a5a75;
-    --cream:   #FFECCC;
-    --teal:    #4A9AAA;
+    /* brand colors */
+    --coral:      #ffbdb6;   /* lighter coral, used on dark backgrounds */
+    --coral-dark: #532123;   /* dark red, used as muted text in light mode */
+    --coral-text: #8b1a10;   /* darker coral for text on light backgrounds — passes contrast */
+
+    /* palette */
+    --navy:      #163C52;
+    --navy-mid:  #2a5a75;
+    --cream:     #FFECCC;
+    --teal:      #4A9AAA;
     --teal-light: #B4D3C7;
 
-    --bg:       var(--navy);
-    --bg-card:  var(--navy-mid);
-    --text:     var(--cream);
-    --accent: var(--coral);
-        --muted:    var(--teal-light);
-    --nav-bg:   rgba(22, 60, 82, 0.85);
-    --border:   rgba(255,236,204,0.15);
+    /* semantic tokens — these are what i actually use in the CSS below
+       so if i want to change the whole color scheme i just edit these */
+    --bg:      var(--navy);
+    --bg-card: var(--navy-mid);
+    --text:    var(--cream);
+    --accent:  var(--coral);
+    --muted:   var(--teal-light);
+    --border:  rgba(255,236,204,0.15);
 
+    /* fonts */
     --font-display: 'Playfair Display', serif;
-    --font-body: 'Urbanist', sans-serif;
+    --font-body:    'Urbanist', sans-serif;
 
+    /* reusable transition for the color scheme switch */
     --transition-color: background-color 0.3s ease, color 0.3s ease;
 }
 
+/* light scheme — JS adds this class to body when user scrolls past the hero
+   i have two versions of coral because the light one (#ffbdb6) doesn't have
+   enough contrast on a cream background, so i switch to the darker one here */
 body.scheme-light {
-    --bg:       var(--cream);
-    --bg-card:  #fff8ef;
-    --text:     var(--navy);
-    --accent: var(--coral-text);
-    --muted:    var(--coral-dark);
-    --nav-bg:   rgba(255,236,204,0.9);
-    --border:   rgba(22,60,82,0.15);
+    --bg:      var(--cream);
+    --bg-card: #fff8ef;
+    --text:    var(--navy);
+    --accent:  var(--coral-text);   /* darker coral for contrast on light bg */
+    --muted:   var(--coral-dark);
+    --border:  rgba(22,60,82,0.15);
 }
 
+/* ===========================
+   BASE STYLES
+   =========================== */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
 
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-html { scroll-behavior: smooth; }
+html {
+    scroll-behavior: smooth;
+}
 
 body {
     font-family: var(--font-body);
@@ -48,12 +67,34 @@ body {
     overflow-x: hidden;
 }
 
+/* ===========================
+   SKIP LINK
+   this is an accessibility thing — lets keyboard/screen reader users
+   jump straight to the main content without tabbing through the nav
+   =========================== */
 .skip-link {
-   color: var(--accent);
+    position: absolute;
+    top: -100%;
+    left: 0;
+    color: var(--accent);
+    padding: 0.75rem 1.5rem;
+    font-weight: 600;
+    z-index: 9999;
+    text-decoration: none;
+    border-radius: 0 0 8px 0;
+    transition: top 0.2s;
+}
+
+/* only shows up when focused (i.e. when tabbing) */
+.skip-link:focus {
+    top: 0;
 }
 
 /* ===========================
    FOCUS STYLES
+   browsers have default focus outlines but they're often hard to see,
+   so i'm making a more visible one using :focus-visible (not :focus,
+   which would show on mouse clicks too)
    =========================== */
 :focus-visible {
     outline: 3px solid var(--accent);
@@ -63,6 +104,7 @@ body {
 
 /* ===========================
    HEADER / NAV
+   fixed so it stays at the top when scrolling
    =========================== */
 header {
     position: fixed;
@@ -72,12 +114,15 @@ header {
     align-items: center;
     justify-content: space-between;
     padding: 1rem 5%;
-    background: var(--bg);  
+    background: var(--bg);
     border-bottom: 1px solid var(--border);
     transition: var(--transition-color), padding 0.4s ease;
 }
 
-header.scrolled { padding: 0.6rem 5%; }
+/* JS adds this class after scrolling 60px — shrinks the padding a bit */
+header.scrolled {
+    padding: 0.6rem 5%;
+}
 
 .logo-area {
     display: flex;
@@ -98,11 +143,14 @@ header.scrolled { padding: 0.6rem 5%; }
     font-style: italic;
     font-size: 2rem;
     color: var(--text);
-    transition: color 0.6s ease;
     letter-spacing: 0.01em;
 }
 
-nav ul { list-style: none; display: flex; gap: 2rem; }
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 2rem;
+}
 
 nav a {
     font-family: var(--font-body);
@@ -112,18 +160,19 @@ nav a {
     text-transform: uppercase;
     color: var(--text);
     text-decoration: none;
-    position: relative;
     padding-bottom: 3px;
     transition: color 0.3s;
 }
 
-nav a:hover {
-   color: var(--accent);
-   text-decoration: underline;
+nav a:hover,
+nav a:focus-visible {
+    color: var(--accent);
+    text-decoration: underline;
 }
 
 /* ===========================
    HERO — SECTION 1
+   min-height: 100vh makes it fill the whole screen
    =========================== */
 #section-1 {
     min-height: 100vh;
@@ -133,7 +182,7 @@ nav a:hover {
     justify-content: center;
     position: relative;
     overflow: hidden;
-    padding: 4rem 5% 4rem;
+    padding: 4rem 5%;
     text-align: center;
 }
 
@@ -142,7 +191,6 @@ nav a:hover {
     letter-spacing: 0.25em;
     text-transform: uppercase;
     color: var(--accent);
-    /* margin-bottom: 1.5rem; */
 }
 
 .hero-title {
@@ -151,12 +199,14 @@ nav a:hover {
     font-size: 9rem;
     line-height: 1.05;
     color: var(--text);
-    transition: color 0.6s ease;
 }
 
-.hero-title span { color: var(--accent); }
+.hero-title span {
+    color: var(--accent);
+}
 
-
+/* the little scroll arrow at the bottom of the hero
+   using prefers-reduced-motion, shouldn't animate for users who have that setting turned on */
 .hero-scroll-hint {
     position: absolute;
     bottom: 2.5rem;
@@ -171,10 +221,13 @@ nav a:hover {
     text-transform: uppercase;
     color: var(--muted);
     opacity: 0.7;
+    text-decoration: none;
 }
 
 @media (prefers-reduced-motion: no-preference) {
-    .hero-scroll-hint { animation: bounce 2s ease-in-out infinite; }
+    .hero-scroll-hint {
+        animation: bounce 2s ease-in-out infinite;
+    }
 }
 
 @keyframes bounce {
@@ -184,6 +237,7 @@ nav a:hover {
 
 /* ===========================
    ABOUT — SECTION 2
+   two column grid: text on left, photo on right
    =========================== */
 #section-2 {
     padding: 8rem 5%;
@@ -191,9 +245,9 @@ nav a:hover {
     grid-template-columns: 1fr 1fr;
     gap: 4rem;
     align-items: center;
-    margin: 0 auto;
 }
 
+/* used as a section title across the page */
 .section-label {
     font-size: 3rem;
     font-weight: 800;
@@ -203,46 +257,36 @@ nav a:hover {
     margin-bottom: 1rem;
 }
 
-.section-heading {
-    font-family: var(--font-display);
-    font-size: 3rem;
-    font-weight: 1000;
-    line-height: 1.15;
-    color: var(--text);
-    /* transition: color 0.6s ease; */
-    margin-bottom: 1.5rem;
-}
-
 .section-body {
     font-size: 1.3rem;
     font-weight: 300;
     line-height: 1.8;
     color: var(--muted);
-    /* transition: color 0.6s ease; */
     margin-bottom: 2rem;
 }
 
+/* the band photo — aspect-ratio + overflow:hidden crops it cleanly */
 .about-illustration {
     border: 1px solid var(--border);
     border-radius: 16px;
     aspect-ratio: 4/3;
-    overflow: hidden;     
+    overflow: hidden;
 }
 
 .about-illustration img {
     width: 100%;
     height: 100%;
-    object-fit: cover;       
+    object-fit: cover;
     object-position: center;
     display: block;
 }
 
-
+/* reusable button style used in sections 2 and 4 */
 .btn {
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-    margin: 2rem 0rem;
+    margin: 2rem 0;
     padding: 0.8rem 2rem;
     border: 2px solid var(--accent);
     border-radius: 50px;
@@ -257,170 +301,49 @@ nav a:hover {
     transition: background 0.3s, color 0.3s, transform 0.2s;
 }
 
-.btn:hover, .btn:focus-visible {
+.btn:hover,
+.btn:focus-visible {
     background: var(--accent);
     color: white;
     transform: translateY(-2px);
 }
 
-.btn-filled { background: var(--accent); color: white; }
-
-.btn-filled:hover, .btn-filled:focus-visible {
-    background: var(--coral-dark);
-    border-color: var(--coral-dark);
-    color: white;
-}
-
 /* ===========================
    PERFORMANCES — SECTION 3
+   video thumbnails in a 3-column grid
    =========================== */
 #section-3 {
     padding: 6rem 5%;
     background: var(--bg-card);
-    transition: background-color 0.6s ease;
+    transition: background-color 0.3s ease;
 }
-
-#section-3 .inner { margin: 0 auto; }
-
-#section-3 .section-top {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    margin-bottom: 3rem;
-}
-
 .lightbox-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 1.25rem;
 }
 
-.lightbox-item {
-    position: relative;
-    aspect-ratio: 16/10;
-    background: var(--bg);
-    border-radius: 12px;
-    overflow: hidden;
-    cursor: pointer;
-    border: 1px solid var(--border);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.lightbox-item:hover,
-.lightbox-item:focus-visible {
+.lightbox-grid a:hover,
+.lightbox-grid a:focus-visible {
     transform: translateY(-4px);
     box-shadow: 0 8px 24px rgba(0,0,0,0.3);
-    outline: 3px solid var(--accent);
-    outline-offset: 3px;
 }
 
-.thumb-placeholder {
+.lightbox-grid img {
     width: 100%;
     height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 2.5rem;
-    background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 100%);
-    position: relative;
+    aspect-ratio: 16/10;
+    object-fit: cover;
+    display: block;
 }
 
-body.scheme-light .thumb-placeholder {
-    background: linear-gradient(135deg, var(--teal) 0%, var(--navy-mid) 100%);
-}
-
-.play-btn {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: rgba(0,0,0,0.3);
-    opacity: 0;
-    transition: opacity 0.3s;
-}
-
-.lightbox-item:hover .play-btn,
-.lightbox-item:focus-visible .play-btn { opacity: 1; }
-
-.play-icon {
-    width: 52px; height: 52px;
-    border-radius: 50%;
-    background: var(--accent);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.play-icon::after {
-    content: '';
-    border-style: solid;
-    border-width: 8px 0 8px 16px;
-    border-color: transparent transparent transparent white;
-    margin-left: 3px;
-}
-
-.lightbox-caption {
-    position: absolute;
-    bottom: 0; left: 0; right: 0;
-    padding: 0.75rem 1rem;
-    background: linear-gradient(transparent, rgba(0,0,0,0.7));
-    color: white;
-    font-size: 0.85rem;
-    font-weight: 500;
-    transform: translateY(100%);
-    transition: transform 0.3s ease;
-}
-
-.lightbox-item:hover .lightbox-caption,
-.lightbox-item:focus-visible .lightbox-caption { transform: translateY(0); }
-
-.modal-overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.9);
-    z-index: 9999;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.3s ease;
-}
-
-.modal-overlay.open { opacity: 1; pointer-events: all; }
-
-.modal-content { width: 90%; position: relative; }
-
-.modal-video {
-    width: 100%;
-    aspect-ratio: 16/9;
-    background: black;
-    border-radius: 12px;
-}
-
-.modal-close {
-    position: absolute;
-    top: -2.5rem; right: 0;
-    background: none;
-    border: none;
-    color: white;
-    font-size: 1.5rem;
-    cursor: pointer;
-    font-family: var(--font-body);
-    padding: 0.25rem 0.5rem;
-    border-radius: 4px;
-}
-
-.modal-close:focus-visible {
-    outline: 3px solid white;
-    outline-offset: 3px;
-}
 /* ===========================
-   MEDIA — SECTION 4
+   PRESS & SOCIAL — SECTION 4
+   auto-fit grid so cards wrap on smaller screens
    =========================== */
-#section-4 { padding: 8rem 5%; }
-#section-4 .inner { margin: 0 auto; }
+#section-4 {
+    padding: 8rem 5%;
+}
 
 .media-grid {
     display: grid;
@@ -434,24 +357,27 @@ body.scheme-light .thumb-placeholder {
     border: 1px solid var(--border);
     border-radius: 16px;
     padding: 1.5rem;
-    transition: background-color 0.6s ease, border-color 0.6s ease, transform 0.3s;
+    transition: background-color 0.3s ease, border-color 0.3s ease, transform 0.3s;
 }
 
+.media-card:hover {
+    transform: translateY(-3px);
+}
+
+/* flyer images inside cards */
 .media-card img {
     width: 100%;
-    height: auto;        
+    height: auto;
     display: block;
-    border-radius: 8px; 
+    border-radius: 8px;
     margin-top: 1rem;
 }
-
-.media-card:hover { transform: translateY(-3px); }
 
 .media-source {
     font-size: 1.2rem;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-   color: var(--accent);
+    color: var(--accent);
     margin-bottom: 1rem;
     font-weight: 600;
 }
@@ -461,51 +387,31 @@ body.scheme-light .thumb-placeholder {
     font-size: 1.5rem;
     line-height: 1.4;
     color: var(--accent);
-    transition: color 0.6s ease;
     margin-bottom: 0.75rem;
 }
 
-.media-headline a:link {
-    color: var(--text);
-    text-decoration: none;
-}
-
-.media-headline a:visited {
-    color: var(--navy);
-    text-decoration: none;
-}
-
+/* link states in LVHA order (Link, Visited, Hover, Active)
+   visited uses --muted so it's visually distinct but still readable */
+.media-headline a:link    { color: var(--text); text-decoration: none; }
+.media-headline a:visited { color: var(--muted); text-decoration: none; }
 .media-headline a:hover,
 .media-headline a:focus-visible {
-    text-decoration: underline;
     color: var(--accent);
+    text-decoration: underline;
 }
 
 .media-excerpt {
     font-size: 0.9rem;
     color: var(--muted);
     line-height: 1.6;
-    transition: color 0.6s ease;
-}
-
-.media-embed-placeholder {
-    background: var(--bg);
-    border: 1px dashed var(--border);
-    border-radius: 10px;
-    height: 80px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.8rem;
-    color: var(--muted);
-    margin-top: 1rem;
-    transition: background-color 0.6s ease;
 }
 
 /* ===========================
-   USER PREFERENCES — SECTION 5
+   REDUCED MOTION
+   if the user has "reduce motion" turned on in their OS settings,
+   turn off all transitions and animations
+   nothing else moves around
    =========================== */
-
 @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
 
@@ -516,19 +422,13 @@ body.scheme-light .thumb-placeholder {
     .hero-title,
     .about-illustration,
     .btn,
-    .dot,
-    .section-heading,
     .section-body,
-    .media-headline,
-    .media-excerpt,
     .media-card,
-    .media-embed-placeholder,
     .lightbox-item,
     .lightbox-caption,
     .play-btn,
     .modal-overlay,
-    #section-3,
-    footer {
+    #section-3 {
         transition: none;
         animation: none;
     }

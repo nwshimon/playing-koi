@@ -3,42 +3,75 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Us Page - Playing Koi</title>
+    <title>About Us — Playing Koi</title>
+    <meta name="description" content="Learn about Playing Koi, an indie/alternative band from Ann Arbor, MI.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100..900;1,100..900&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/about.css">
 </head>
-<body>
-    <!-- MAKE THIS FIXED @ THE TOP UPON SCROLL -->
-    <header>
-        <img
-            src="favicon.ico"
-            alt="playing koi logo"
-        >
-        <!-- the koi emoji will be placeholders for now -->
+<body class="scheme-light">
 
-        <nav class="main">
-        <ul>
-            <li class="crumb"><a href="about.html">about us</a></li>
-            <li class="crumb"><a href="catalog.html">catalog</a></li>
-        </ul>
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+
+    <header id="main-header" role="banner">
+        <a href="index.html" class="logo-area">
+            <img src="favicon.ico" alt="Playing Koi logo">
+            <span class="logo-name">playing koi</span>
+        </a>
+        <nav aria-label="Main navigation">
+            <ul>
+                <li><a href="about.html">about us</a></li>
+            </ul>
         </nav>
     </header>
 
-    <main>
-        <div class="timeline-container">
-        <ul class="timeline">
-            <li>
-                <div class="date">September 2025</div>
-                <div class="content"><p>Emily goes to Music Festival, "All Things Go," a lightning strike of inspiration...</p></div>
-            </li>
-            <li>
-                <div class="date">October 2025</div>
-                <div class="content">Band was formed...</div>
-            </li>
-            <li>
-                <div class="date">November 2025</div>
-                <div class="content">...</div>
-            </li>
-        </ul>
-        </div>
+    <main id="main-content">
+
+        <!-- PAGE HEADER -->
+        <section id="about-hero">
+            <p class="hero-subtitle">our story</p>
+            <h1 class="section-label">who we are</h1>
+            <p class="section-body">
+                We are five students and alums at the University of Michigan 
+                with lots of love for arts and music.
+            </p>
+        </section>
+
+        <!-- MEET THE BAND -->
+        <section id="members-section" aria-labelledby="members-heading">
+            <h2 id="members-heading" class="section-label">meet the fish</h2>
+            <div class="members-grid">
+                <article class="member-card media-card">
+                    <h3 class="media-headline">Emily</h3>
+                    <p class="media-source">vocals / guitar</p>
+                    <p class="media-excerpt">DESCRIPTION</p>
+                </article>
+                <article class="member-card media-card">
+                    <h3 class="media-headline">Nat</h3>
+                    <p class="media-source">guitar</p>
+                    <p class="media-excerpt">DESCRIPTION</p>
+                </article>
+                <article class="member-card media-card">
+                    <h3 class="media-headline">Eilene</h3>
+                    <p class="media-source">drummer</p>
+                    <p class="media-excerpt">DESCRIPTION</p>
+                </article>
+                <article class="member-card media-card">
+                    <h3 class="media-headline">Crystal</h3>
+                    <p class="media-source">keyboard</p>
+                    <p class="media-excerpt">DESCRIPTION</p>
+                </article>
+                <article class="member-card media-card">
+                    <h3 class="media-headline">Ahtziri</h3>
+                    <p class="media-source">drums</p>
+                    <p class="media-excerpt">DESCRIPTION</p>
+                </article>
+            </div>
+        </section>
+
     </main>
+
+    <script src="js/script.js"></script>
 </body>
 </html>

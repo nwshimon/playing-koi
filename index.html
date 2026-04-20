@@ -7,8 +7,9 @@
     <meta name="description" content="Playing Koi is an indie/alternative band from Ann Arbor, MI. Catch our live performances, listen to our music, and follow along.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100..900;1,100..900&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <link href="dist/css/lightbox.css" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
-</head>
+</head>s
 <body>
 
     <!-- Skip navigation link for keyboard/screen reader users -->
@@ -46,7 +47,6 @@
         <section id="section-2">
             <div>
                 <h2 class="section-label">who we are</h2>
-                <!-- <h3 id="about-heading" class="section-heading">five fish,<br>one pond!</h3> -->
                 <p class="section-body">
                     We are five students and alums at the University of Michigan in a band
                     with lots of love for arts and music. From gigs at private, small venues 
@@ -68,30 +68,29 @@
                         <p class="section-body">Watch our performances, all recorded by our beloved friends and families.</p>
                     </div>
                 </div>
-
                 <div class="lightbox-grid" role="list" aria-label="Performance videos">
                     <div role="listitem">
-                        <div class="lightbox-item" role="button" tabindex="0" aria-label="Play video: Take the Bait at Foundry Lofts">
-                            <div class="thumb-placeholder" aria-hidden="true">🎤</div>
-                            <div class="play-btn" aria-hidden="true"><div class="play-icon"></div></div>
-                            <div class="lightbox-caption" aria-hidden="true">Take the Bait! @ Foundry Lofts</div>
-                        </div>
+                        <a href="img/debut-thumbnail.jpg" 
+                        data-lightbox="performances" 
+                        data-title="Take the Bait! @ Foundry Lofts">
+                            <img src="img/debut-thumbnail.jpg" alt="Take the Bait performance at Foundry Lofts">
+                        </a>
                     </div>
                     <div role="listitem">
-                        <div class="lightbox-item" role="button" tabindex="0" aria-label="Play video: Standing Room Only at The Michigan Daily">
-                            <div class="thumb-placeholder" aria-hidden="true">🎸</div>
-                            <div class="play-btn" aria-hidden="true"><div class="play-icon"></div></div>
-                            <div class="lightbox-caption" aria-hidden="true">Standing Room Only @ The Michigan Daily</div>
-                        </div>
+                        <a href="img/sro-thumbnail.jpg" 
+                        data-lightbox="performances" 
+                        data-title="Standing Room Only @ The Michigan Daily">
+                            <img src="img/sro-thumbnail.jpg" alt="Standing Room Only performance at The Michigan Daily">
+                        </a>
                     </div>
                     <div role="listitem">
-                        <div class="lightbox-item" role="button" tabindex="0" aria-label="Play video: MiC Arts Expo at The Diag">
-                            <div class="thumb-placeholder" aria-hidden="true">🥁</div>
-                            <div class="play-btn" aria-hidden="true"><div class="play-icon"></div></div>
-                            <div class="lightbox-caption" aria-hidden="true">MiC Arts Expo @ The Diag</div>
-                        </div>
+                        <a href="img/mic-thumbnail.jpg" 
+                        data-lightbox="performances" 
+                        data-title="MiC Arts Expo @ The Diag">
+                            <img src="img/mic-thumbnail.jpg" alt="MiC Arts Expo performance at The Diag">
+                        </a>
                     </div>
-                </div>                </div>
+                </div>
             </div>
         </section>
 
@@ -106,46 +105,31 @@
                 <div class="media-grid">
                     <article class="media-card">
                         <p class="media-source">The Michigan Daily</p>
-                        <h3 class="media-headline">
-                            <a href="https://www.michigandaily.com/arts/b-side/fish-out-of-water/" 
-                            target="_blank" 
-                            rel="noopener noreferrer"
-                            aria-label="Read the Michigan Daily article about Playing Koi, opens in new tab">
-                                "Playing Koi and its tests, allies and enemies"
-                            </a>
-                        </h3>
+                        <h3 class="media-headline">"Playing Koi and its tests, allies and enemies"</h3>
                         <p class="media-excerpt">Playing Koi is ultimately us choosing to work together, even when we did not all know each other. We are a band united together by a shared dream of something greater. We are allies standing tall in the face of trials and foes, whether it be conquering a stage or the enemies we find lurking within ourselves. And most of all, we are friends who just want to play music with each other. ...</p>
+                        <a href="https://www.michigandaily.com/arts/b-side/fish-out-of-water/" 
+                        class="btn"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label="Read the Playing Koi article on The Michigan Daily, opens in new tab">
+                        Article on TMD ↗
+                        </a> 
                     </article>
                     <article class="media-card">
                         <p class="media-source">gigs</p>
-                        <h3 class="media-headline">a flyer for our 04/04 gig, "Take the Bait!"</h3>
+                        <h3 class="media-headline">Our debut gig, "Take the Bait!"</h3>
                         <img class="media-excerpt" src="img/debut-flyer.png" alt="A poster with cutouts of the Playing Koi members' faces Photoshopped on top of 5 koi fish images with time and date announcements of April 4th, 7pm at Foundry Lofts Rooftop">
                     </article>
                     <article class="media-card">
                         <p class="media-source">gigs</p>
-                        <h3 class="media-headline">a flyer for our 04/15 gig, "It's Getting Reel!"</h3>
-                        <img class="media-excerpt" src="img/sro-flyer.png" alt="A poster with an illustration of five koi fish playing band instruments with the text 'The Michigan Daily presents Standing Room Only' with time and date announcements of April 16th, 7pm">
+                        <h3 class="media-headline">Performing for The Michigan Daily Standing Room Only series</h3>
+                        <img class="media-excerpt" src="img/sro-flyer.png" alt="A poster with a digital cartoon drawing of five koi fish playing band instruments with the text 'The Michigan Daily presents Standing Room Only' with time and date announcements of April 16th, 7pm">
                     </article>
-                    <!-- <article class="media-card">
-                        <p class="media-source">social media</p>
-                        <h3 class="media-headline">follow along @playingkoi</h3>
-                        <div class="media-embed-placeholder" role="img" aria-label="Social media embed coming soon">📱 social embed placeholder</div>
-                    </article> -->
                 </div>
             </div>
         </section>
-
-    <!-- LIGHTBOX MODAL -->
-    <div class="modal-overlay" id="lightbox-modal" role="dialog" aria-modal="true" aria-label="Video player">        <div class="modal-content">
-            <h2 id="modal-title">Video player</h2>
-            <button class="modal-close" id="modal-close" aria-label="Close video">&times; close</button>
-            <div class="modal-video" id="modal-video-container">
-                <!-- iframe injected by JS -->
-            </div>
-        </div>
-    </div>
-
 </main>
     <script src="js/script.js"></script>
+    <script src="dist/js/lightbox-plus-jquery.js"></script>
 </body>
 </html>
