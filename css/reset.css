@@ -1,0 +1,63 @@
+/* ===========================
+   RESET
+   Inspired by Josh Comeau's Custom CSS Reset
+   https://www.joshwcomeau.com/css/custom-css-reset/
+   and Andy Bell's Modern CSS Reset
+   https://piccalil.li/blog/a-more-modern-css-reset/
+   =========================== */
+
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* Prevent font size inflation on mobile */
+html {
+    -moz-text-size-adjust: none;
+    -webkit-text-size-adjust: none;
+    text-size-adjust: none;
+}
+
+/* Smooth scrolling unless user prefers reduced motion */
+html:focus-within {
+    scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html:focus-within {
+        scroll-behavior: auto;
+    }
+}
+
+body {
+    min-height: 100vh;
+    line-height: 1.5;
+}
+
+/* Make images easier to work with */
+img, picture, video, canvas, svg {
+    display: block;
+    max-width: 100%;
+}
+
+/* Inherit fonts for inputs and buttons */
+input, button, textarea, select {
+    font: inherit;
+}
+
+/* Avoid text overflows */
+p, h1, h2, h3, h4, h5, h6 {
+    overflow-wrap: break-word;
+}
+
+/* Remove list styles on ul/ol with a list role */
+ul[role='list'],
+ol[role='list'] {
+    list-style: none;
+}
+
+/* Remove default link styles */
+a {
+    text-decoration-skip-ink: auto;
+}
